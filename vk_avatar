@@ -1,0 +1,12 @@
+<?php
+function get_ava($url) {
+
+	$id = substr($url, 15); // с 15 символа в адресе страницы начинается id пользователя вконтакте
+	$tocken = 'ВСТАВЛЯЕМ СЮДА СВОЙ КЛЮЧ'; // сервисный ключ моего приложения ВК
+	$query = "https://api.vk.com/method/users.get?user_ids=$id&access_token=$tocken&fields=photo_100&v=5.52"; // запрос на получение данных о пользователе
+	$json = json_decode(file_get_contents($query)); // преобразуем ответ API вконтакте в формате строки JSON в объект
+	$result = $json->response[0]->photo_100; // извлекаем из полученного объекта url аватарки
+	return $result; //возвращаем url аватарки
+
+}
+?>
